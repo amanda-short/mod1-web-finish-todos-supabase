@@ -3,6 +3,7 @@
 import './auth/user.js';
 import {
     createTodo,
+    getTodos,
 } from './fetch-utils.js';
 // Part A: import create todo
 // Part B: import get todos
@@ -24,11 +25,21 @@ let error = null;
 
 window.addEventListener('load', async () => {
     // > Part B: Add a click event listener for the todoEl
-    //      - call the async supabase function to delete all todos
-    //        and get the response
+    //      - call the async supabase function to get todos
     //      - set the todos and error state from the response
     //      - if there's an error call displayError
     //      - otherwise, display the todos
+    const response = await getTodos();
+    error = response.error;
+    todos = response.data;
+
+    if (error) {
+        displayError();
+    }
+
+    if (todos) {
+        displayTodos();
+    }
 });
 
 addTodoForm.addEventListener('submit', async (e) => {
