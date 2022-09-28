@@ -5,6 +5,7 @@ import {
     completeTodo,
     createTodo,
     getTodos,
+    deleteAllTodos,
 } from './fetch-utils.js';
 // Part A: import create todo
 // Part B: import get todos
@@ -66,14 +67,13 @@ addTodoForm.addEventListener('submit', async (e) => {
 
 removeButton.addEventListener('click', async () => {
     // > Part D: Call the async supabase function to delete all todos
-    const response = null; // change me
+    const response = await deleteAllTodos();
     error = response.error;
-
     if (error) {
         displayError();
     } else {
         // > Part D: reset todos state to an empty array:
-
+        todos = [];
         displayTodos();
     }
 });
