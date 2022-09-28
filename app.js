@@ -2,6 +2,7 @@
 // this will check if we have a user and set signout link if it exists
 import './auth/user.js';
 import {
+    completeTodo,
     createTodo,
     getTodos,
 } from './fetch-utils.js';
@@ -102,5 +103,18 @@ function displayTodos() {
         //          - find the index of todo in todos
         //          - update that index of todos with the response data
         //          - redisplay the todos
+        todoEl.addEventListener('click', async () => {
+            const response = await completeTodo(todo.id);
+            error = response.error;
+            const updatedTodo = response.data;
+
+            if (error) {
+                displayError();
+            } else {
+                const index = todos.indexOf(todo);
+                todos[index] = updatedTodo;
+                displayTodos();
+            }
+        });
     }
 }
